@@ -6,8 +6,6 @@ let score = 0;
 let streak = 0;
 let maxStreak = 0;
 let lives = 3;
-let timer = null;
-const TIME_LIMIT = 10; // 10 секунд на вопрос
 let bestScore = localStorage.getItem('bestScore') || 0; // Загружаем лучший результат из памяти
 
 // Элементы
@@ -18,7 +16,6 @@ const optionsContainer = document.getElementById('options-container');
 const questionText = document.getElementById('question-text');
 const questionCounter = document.getElementById('question-counter');
 const livesContainer = document.getElementById('lives-container');
-const timerBar = document.getElementById('timer-bar');
 const streakIndicator = document.getElementById('streak-indicator');
 const progressBar = document.getElementById('progress-bar');
 const btnNext = document.getElementById('btn-next');
@@ -72,7 +69,6 @@ function startQuiz(mode) {
 
     updateMeta();
     showQuestion();
-    startTimer();
 }
 
 // Вспомогательная функция для отрисовки сердечек
@@ -90,7 +86,6 @@ function showQuestion() {
     btnNext.classList.add('hidden');
     explanationContainer.classList.add('hidden');
     optionsContainer.innerHTML = '';
-    clearInterval(timer);
 
     const q = quizQuestions[currentIndex];
     questionText.innerText = q.question;
@@ -102,26 +97,6 @@ function showQuestion() {
         btn.onclick = () => handleAnswer(index, btn);
         optionsContainer.appendChild(btn);
     });
-}
-
-function startTimer() {
-    let timeLeft = TIME_LIMIT;
-    timerBar.style.width = '100%';
-
-    timer = setInterval(() => {
-        timeLeft--;
-        timerBar.style.width = `${(timeLeft / TIME_LIMIT) * 100}%`;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            handleTimeout();
-        }
-    }, 1000);
-}
-
-function handleTimeout() {
-    loseLife();
-    showExplanation(null);
 }
 
 function loseLife() {
@@ -158,7 +133,6 @@ function updateStreak(isCorrect) {
 }
 
 function handleAnswer(index, btn) {
-    clearInterval(timer);
     const q = quizQuestions[currentIndex];
     const allBtns = optionsContainer.querySelectorAll('.option-btn');
     
@@ -184,7 +158,6 @@ function showExplanation(q) {
 }
 
 function endGame(message) {
-    clearInterval(timer);
     quizScreen.classList.add('hidden');
     resultsScreen.classList.remove('hidden');
     resultsScreen.querySelector('.result-title').innerText = message;
@@ -211,7 +184,6 @@ btnNext.onclick = () => {
     currentIndex++;
     if (currentIndex < quizQuestions.length) {
         showQuestion();
-        startTimer();
     } else {
         showResults();
     }

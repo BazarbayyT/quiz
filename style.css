@@ -198,16 +198,6 @@ body {
     transition: transform 0.3s ease, opacity 0.5s ease;
 }
 
-/* Стили для таймера */
-.timer-bar {
-    height: 4px;
-    background: var(--pink-accent);
-    width: 100%;
-    margin-bottom: 15px;
-    border-radius: 2px;
-    transition: width 1s linear;
-}
-
 /* Стили для винстрика */
 #streak-indicator {
     font-weight: 800;

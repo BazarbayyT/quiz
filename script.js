@@ -97,6 +97,8 @@ function showQuestion() {
         btn.onclick = () => handleAnswer(index, btn);
         optionsContainer.appendChild(btn);
     });
+
+    updateMeta();
 }
 
 function loseLife() {

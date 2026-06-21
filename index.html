@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Quiz Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <section id="welcome-screen" class="screen">
+            <h1 class="main-title">Прокачай свои знания</h1>
+            <p class="subtitle">Готова к тренировке? Выбери режим:</p>
+            
+            <div class="modes-container">
+                <button id="btn-marathon" class="mode-card marathon-mode">
+                    <div class="mode-badge">M</div>
+                    <div class="mode-info">
+                        <h3>Марафон</h3>
+                        <p>Пройти все вопросы без исключения</p>
+                    </div>
+                </button>
+                
+                <button id="btn-sprint" class="mode-card sprint-mode">
+                    <div class="mode-badge">S</div>
+                    <div class="mode-info">
+                        <h3>Спринт</h3>
+                        <p>Случайные 25 вопросов для быстрой разминки</p>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <section id="quiz-screen" class="screen hidden">
+            <div class="quiz-header">
+                <div class="game-info">
+                    <div id="lives-container"></div>
+                    <div id="streak-indicator">Комбо: 0</div>
+                </div>
+                
+                <div class="progress-wrapper">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                
+                <div id="timer-bar" class="timer-bar"></div>
+                
+                <div class="quiz-meta">
+                    <span id="question-counter" class="meta-tag">Вопрос: 1 / 25</span>
+                </div>
+            </div>
+
+            <div class="quiz-body">
+                <h2 id="question-text">Загрузка вопроса...</h2>
+                <div id="options-container" class="options-grid"></div>
+            </div>
+
+            <div class="quiz-footer">
+                <button id="btn-next" class="btn-next hidden">Дальше</button>
+            </div>
+        </section>
+
+        <section id="results-screen" class="screen hidden">
+            <div class="result-card">
+                <h2 class="result-title">Миссия завершена</h2>
+                <div class="result-stats">
+                    <p>Правильных ответов: <strong id="final-score">0 / 25</strong></p>
+                    <p>Лучшая серия комбо: <strong id="max-streak">0</strong></p>
+                </div>
+                <button id="btn-restart" class="btn-restart">Повторить тренировку</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

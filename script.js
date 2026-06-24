@@ -5,8 +5,8 @@ let currentIndex = 0;
 let score = 0;
 let streak = 0;
 let maxStreak = 0;
-let lives = 3;
 let bestScore = localStorage.getItem('bestScore') || 0; // Загружаем лучший результат из памяти
+let isGameOver = false;
 
 // Элементы
 const welcomeScreen = document.getElementById('welcome-screen');
@@ -15,7 +15,7 @@ const resultsScreen = document.getElementById('results-screen');
 const optionsContainer = document.getElementById('options-container');
 const questionText = document.getElementById('question-text');
 const questionCounter = document.getElementById('question-counter');
-const livesContainer = document.getElementById('lives-container');
+// lives container removed from HTML; keep variable removed
 const streakIndicator = document.getElementById('streak-indicator');
 const progressBar = document.getElementById('progress-bar');
 const btnNext = document.getElementById('btn-next');
@@ -60,8 +60,7 @@ function startQuiz(mode) {
     score = 0;
     streak = 0;
     maxStreak = 0;
-    lives = 3;
-    renderLives();
+    isGameOver = false; // <--- ДОБАВЛЕНО
 
     welcomeScreen.classList.add('hidden');
     resultsScreen.classList.add('hidden');
@@ -72,14 +71,6 @@ function startQuiz(mode) {
 }
 
 // Вспомогательная функция для отрисовки сердечек
-function renderLives() {
-    const heartSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="heart-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
-    if (livesContainer) {
-        livesContainer.innerHTML = heartSvg.repeat(lives);
-    } else {
-        console.error("Не найден элемент lives-container!");
-    }
-}
 
 // 4. Показ вопроса
 function showQuestion() {
@@ -101,26 +92,7 @@ function showQuestion() {
     updateMeta();
 }
 
-function loseLife() {
-    const hearts = livesContainer ? livesContainer.querySelectorAll('.heart-icon') : [];
-    if (hearts.length > 0) {
-        const lastHeart = hearts[hearts.length - 1];
-        lastHeart.classList.add('lost-life');
-        lastHeart.addEventListener('animationend', () => {
-            lives--;
-            renderLives();
-            if (lives <= 0) {
-                endGame('Игра окончена!');
-            }
-        }, { once: true });
-    } else {
-        lives--;
-        renderLives();
-        if (lives <= 0) {
-            endGame('Игра окончена!');
-        }
-    }
-}
+// lives/loseLife removed — game no longer uses life mechanic
 
 function updateStreak(isCorrect) {
     if (isCorrect) {
@@ -147,8 +119,7 @@ function handleAnswer(index, btn) {
     } else {
         btn.classList.add('wrong');
         allBtns[q.correct].classList.add('correct');
-        loseLife();
-        updateStreak(false);
+        updateStreak(false); // Просто сбрасываем винстрик, без потери жизни
     }
     showExplanation(q);
 }
@@ -183,6 +154,12 @@ function updateMeta() {
 
 // 7. Следующий вопрос
 btnNext.onclick = () => {
+    // Если игра окончена из-за потери жизней
+    if (isGameOver) {
+        endGame('Игра окончена!');
+        return;
+    }
+
     currentIndex++;
     if (currentIndex < quizQuestions.length) {
         showQuestion();

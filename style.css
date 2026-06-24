@@ -274,6 +274,17 @@ body {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.option-btn, .mode-card, .btn-next, .btn-restart {
+    user-select: none; /* Запрещает случайное выделение текста */
+    -webkit-tap-highlight-color: transparent; /* Убирает синий квадрат при тапе на мобилках */
+    will-change: transform, box-shadow; /* Подсказывает браузеру о предстоящих трансформациях для плавности */
+}
+
+.option-btn:focus-visible, .btn-next:focus-visible, .btn-restart:focus-visible, .mode-card:focus-visible {
+    outline: 3px solid var(--purple-light);
+    outline-offset: 2px;
+}
+
 .option-btn:hover:not(:disabled) {
     border-color: var(--purple-primary);
     background: #faf8ff;
@@ -400,4 +411,21 @@ body {
     line-height: 1.5;
     color: #4c1d95;
     animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #0f172a;
+        --card-bg: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --purple-light: #3b0764;
+        --pink-light: #831843;
+        /* Яркие акценты оставляем прежними */
+    }
 }

@@ -97,13 +97,24 @@ function showQuestion() {
 function updateStreak(isCorrect) {
     if (isCorrect) {
         streak++;
-        if (streak >= 5) streakIndicator.classList.add('streak-hot');
         if (streak > maxStreak) maxStreak = streak;
+        
+        let streakMessage = `Комбо: ${streak}`;
+        if (streak === 3) streakMessage = "Хороший старт! ✨";
+        if (streak === 5) streakMessage = "Идеально! ☕";
+        if (streak === 10) streakMessage = "Ты просто гений! 🤎";
+        if (streak >= 15) streakMessage = "Легендарно! 🕊️";
+        
+        streakIndicator.innerText = streakMessage;
+        streakIndicator.style.color = "var(--primary)";
+        streakIndicator.classList.add('streak-bounce');
+        
+        setTimeout(() => streakIndicator.classList.remove('streak-bounce'), 300);
     } else {
         streak = 0;
-        streakIndicator.classList.remove('streak-hot');
+        streakIndicator.innerText = `Комбо: 0`;
+        streakIndicator.style.color = "var(--text-muted)";
     }
-    streakIndicator.innerText = `Комбо: ${streak}`;
 }
 
 function handleAnswer(index, btn) {
@@ -125,7 +136,13 @@ function handleAnswer(index, btn) {
 }
 
 function showExplanation(q) {
-    explanationContainer.innerHTML = q ? `<strong>Разбор:</strong> ${q.explanation}` : '<strong>Время вышло!</strong>';
+    if (q) {
+        const raw = q.explanation || '';
+        const cleaned = raw.replace(/\s*(\[(?:cite|ref)\s*:?\s*\d+\]|\[\d+\])\s*$/i, '');
+        explanationContainer.innerHTML = `<strong>Разбор:</strong> ${cleaned}`;
+    } else {
+        explanationContainer.innerHTML = '<strong>Время вышло!</strong>';
+    }
     explanationContainer.classList.remove('hidden');
     btnNext.classList.remove('hidden');
 }

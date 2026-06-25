@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap');
 /* ==========================================================================
    1. СБРОС И ПЕРЕМЕННЫЕ (Светлая премиум палитра как на референсе)
    ========================================================================== */
@@ -5,21 +6,27 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Comfortaa', 'Segoe UI', system-ui, sans-serif;
 }
 
 :root {
-    --bg-color: #f4f5fa;         /* Светлый нежно-серый/лиловый фон */
-    --card-bg: #ffffff;          /* Чистый белый для карточек */
-    --purple-primary: #7c3bed;   /* Яркий фиолетовый из референса */
-    --purple-light: #f3e8ff;     /* Нежный пастельно-фиолетовый */
-    --pink-accent: #ec4899;      /* Розовый акцент */
-    --pink-light: #fce7f3;       /* Нежный пастельно-розовый */
-    --text-main: #1e293b;        /* Глубокий темный для текста */
-    --text-muted: #64748b;       /* Спокойный серый для подзаголовков */
-    --success: #10b981;          /* Изумрудный */
-    --error: #ef4444;            /* Красный */
-    --shadow: 0 20px 40px rgba(124, 59, 237, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02);
+    --bg-color: #FFF0DE;         /* Уютный кремовый фон */
+    --card-bg: #FFFFFF;          /* Белый для карточек, чтобы был контраст */
+    
+    --primary: #694A47;          /* Глубокий винтажный коричневый (главный) */
+    --primary-light: rgba(105, 74, 71, 0.08); /* Очень легкий коричневый */
+    
+    --secondary: #96C1C5;        /* Пыльно-голубой */
+    --secondary-light: #eaf3f4;  /* Светло-голубой для фонов */
+    
+    --text-main: #4A3533;        /* Темно-коричневый для текста (мягче черного) */
+    --text-muted: #8A7371;       /* Приглушенный серо-коричневый */
+    
+    /* Игровые цвета адаптируем под стиль */
+    --success: #96C1C5;          /* Правильный ответ — спокойный голубой */
+    --error: #D9776C;            /* Ошибка — мягкий терракотовый/кирпичный */
+    
+    --shadow: 0 12px 24px rgba(105, 74, 71, 0.06), 0 1px 3px rgba(105, 74, 71, 0.03);
 }
 
 body {
@@ -69,7 +76,7 @@ body {
     text-align: center;
     margin-bottom: 12px;
     letter-spacing: -0.5px;
-    background: linear-gradient(135deg, var(--purple-primary), var(--pink-accent));
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -91,7 +98,7 @@ body {
 /* Стили карточек выбора режима */
 .mode-card {
     background: #ffffff;
-    border: 2px solid #e2e8f0;
+    border: 2px solid rgba(105, 74, 71, 0.12);
     border-radius: 20px;
     padding: 20px;
     display: flex;
@@ -116,28 +123,28 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* Персонализация Марафона (Фиолетовый стиль) */
+/* Персонализация Марафона */
 .marathon-mode .mode-badge {
-    background: var(--purple-light);
-    color: var(--purple-primary);
+    background: var(--primary-light);
+    color: var(--primary);
 }
 .marathon-mode:hover {
-    border-color: var(--purple-primary);
-    background: #faf8ff;
+    border-color: var(--primary);
+    background: var(--secondary-light);
     transform: translateY(-4px);
-    box-shadow: 0 12px 20px rgba(124, 59, 237, 0.08);
+    box-shadow: 0 12px 20px rgba(105, 74, 71, 0.08);
 }
 
-/* Персонализация Спринта (Розовый стиль) */
+/* Персонализация Спринта */
 .sprint-mode .mode-badge {
-    background: var(--pink-light);
-    color: var(--pink-accent);
+    background: var(--secondary-light);
+    color: var(--secondary);
 }
 .sprint-mode:hover {
-    border-color: var(--pink-accent);
-    background: #fffafc;
+    border-color: var(--secondary);
+    background: var(--secondary-light);
     transform: translateY(-4px);
-    box-shadow: 0 12px 20px rgba(236, 72, 153, 0.08);
+    box-shadow: 0 12px 20px rgba(105, 74, 71, 0.08);
 }
 
 .mode-card:hover .mode-badge {
@@ -164,7 +171,7 @@ body {
 }
 
 .progress-wrapper {
-    background: #f1f5f9;
+    background: var(--secondary-light);
     height: 10px;
     border-radius: 6px;
     overflow: hidden;
@@ -174,7 +181,7 @@ body {
 .progress-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(to right, var(--purple-primary), var(--pink-accent));
+    background: var(--secondary); /* Пыльно-голубой прогресс */
     border-radius: 6px;
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -201,14 +208,14 @@ body {
 /* Стили для винстрика */
 #streak-indicator {
     font-weight: 800;
-    color: var(--purple-primary);
+    color: var(--primary);
     transition: all 0.3s ease;
 }
 
-/* Эффект "огня" при длинном комбо */
+/* Эффект при длинном комбо */
 .streak-hot {
-    color: var(--pink-accent) !important;
-    text-shadow: 0 0 10px var(--pink-accent);
+    color: var(--secondary) !important;
+    text-shadow: 0 0 10px var(--secondary);
     transform: scale(1.1);
 }
 
@@ -221,7 +228,7 @@ body {
 }
 
 .meta-tag {
-    background: #f1f5f9;
+    background: var(--secondary-light);
     padding: 6px 14px;
     border-radius: 10px;
     font-size: 0.85rem;
@@ -230,8 +237,8 @@ body {
 }
 
 .streak-tag {
-    background: var(--pink-light);
-    color: var(--pink-accent);
+    background: var(--secondary-light);
+    color: var(--secondary);
     transition: all 0.3s ease;
 }
 
@@ -263,13 +270,13 @@ body {
 
 .option-btn {
     background: #ffffff;
-    border: 2px solid #e2e8f0;
+    border: 2px solid rgba(105, 74, 71, 0.12);
     border-radius: 16px;
     padding: 18px 24px;
     text-align: left;
     color: var(--text-main);
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -281,26 +288,26 @@ body {
 }
 
 .option-btn:focus-visible, .btn-next:focus-visible, .btn-restart:focus-visible, .mode-card:focus-visible {
-    outline: 3px solid var(--purple-light);
+    outline: 3px solid var(--secondary-light);
     outline-offset: 2px;
 }
 
 .option-btn:hover:not(:disabled) {
-    border-color: var(--purple-primary);
-    background: #faf8ff;
+    border-color: var(--primary);
+    background: var(--secondary-light);
     transform: translateX(4px); /* Элегантный сдвиг вправо при наведении */
 }
 
 /* Состояния правильных/неправильных ответов */
 .option-btn.correct {
-    background: #ecfdf5 !important;
+    background: rgba(150, 193, 197, 0.15) !important;
     border-color: var(--success) !important;
     color: var(--success) !important;
     font-weight: 700;
 }
 
 .option-btn.wrong {
-    background: #fff5f5 !important;
+    background: rgba(217, 119, 108, 0.15) !important;
     border-color: var(--error) !important;
     color: var(--error) !important;
 }
@@ -315,22 +322,22 @@ body {
 }
 
 .btn-next, .btn-restart {
-    background: var(--purple-primary);
-    color: white;
+    background: var(--primary);
+    color: var(--bg-color);
     border: none;
     padding: 16px 36px;
-    border-radius: 16px;
+    border-radius: 12px; /* Чуть менее круглые для ретро-стиля */
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 8px 16px rgba(124, 59, 237, 0.2);
+    box-shadow: 0 8px 16px rgba(105, 74, 71, 0.15);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .btn-next:hover, .btn-restart:hover {
-    background: #6d28d9;
+    background: #503836;
     transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(124, 59, 237, 0.3);
+    box-shadow: 0 12px 24px rgba(105, 74, 71, 0.2);
 }
 
 .btn-next:active, .btn-restart:active {
@@ -352,8 +359,8 @@ body {
 }
 
 .result-stats {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
+    background: #ffffff;
+    border: 2px solid rgba(105, 74, 71, 0.12);
     border-radius: 20px;
     padding: 24px;
     margin-bottom: 36px;
@@ -404,12 +411,12 @@ body {
 .explanation-block {
     margin-top: 20px;
     padding: 16px;
-    background: #f3e8ff; /* Нежно-фиолетовый фон */
+    background: var(--secondary-light); /* Светло-голубой фон */
     border-radius: 12px;
-    border-left: 4px solid var(--purple-primary);
+    border: 2px dashed var(--primary); /* Винтажный пунктир */
     font-size: 0.95rem;
     line-height: 1.5;
-    color: #4c1d95;
+    color: var(--text-main);
     animation: fadeIn 0.3s ease;
 }
 
